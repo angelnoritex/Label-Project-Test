@@ -81,9 +81,26 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 DATABASES = {}
-DATABASES['default'] = dj_database_url.config(default=os.getenv('DATABASE_URI'))
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'your_db_name',
+        'USER': 'your_db_user',
+        'PASSWORD': 'your_db_password',
+        'HOST': 'your_db_host',
+        'PORT': '',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
+    }
+}
 
+DATABASES['default'] = dj_database_url.config(default=os.getenv('DATABASE_URI', 'sqlite:///db.sqlite3'))
+if DATABASES['default']['ENGINE'] == 'sql_server.pyodbc':
+    DATABASES['default']['OPTIONS'] = {'driver': 'ODBC Driver 17 for SQL Server'}
+
+print(DATABASES["default"]["ENGINE"])
 
 
 # Password validation

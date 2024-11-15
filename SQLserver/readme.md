@@ -20,3 +20,8 @@ hostConection=127.0.0.1,1433
     The certificate chain was issued by an authority that is not trusted
 
 only go to contection options
+
+
+docker exec -it apt-get update && \
+    ACCEPT_EULA=Y apt-get install -y mssql-tools unixodbc-dev && \
+    echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc 

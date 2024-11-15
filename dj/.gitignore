@@ -25,6 +25,6 @@ env
 
 # If you are using virtual environments
 venv/
+.venv/
 env/
 ENV/
-venv/

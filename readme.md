@@ -16,21 +16,8 @@ sudo ACCEPT_EULA=Y apt-get install -y msodbcsql17
 odbcinst -q -d -n "ODBC Driver 17 for SQL Server"
 
 
-# filepath: /home/angel/ntx/test-label/dj/dj/settings.py
-DATABASES = {
-    'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'your_database_name',
-        'USER': 'your_database_user',
-        'PASSWORD': 'your_database_password',
-        'HOST': 'your_database_host',
-        'PORT': '',
 
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-        },
-    }
-}
+
 
 
 ### docs 
@@ -41,3 +28,12 @@ https://learn.microsoft.com/es-es/sql/connect/odbc/linux-mac/installing-the-micr
 
   git config --global user.email "you@example.com"
   git config --global user.name "Your Name"
+
+
+
+### ACCEPT_EULA
+La flag ACCEPT_EULA se utiliza para aceptar el Acuerdo de Licencia de Usuario Final (EULA, por sus siglas en inglés) de Microsoft de manera automática. Esto es necesario para instalar ciertos paquetes de Microsoft, como msodbcsql17 y mssql-tools, que requieren la aceptación del EULA antes de proceder con la instalación.
+
+
+
+[djangoexample](https://pedrodsferreira.github.io/django-mssql-docker/)

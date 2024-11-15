@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: mcr.microsoft.com/mssql/server:2019-latest
@@ -12,8 +10,9 @@ services:
       - mssql-data:/var/opt/mssql
 
   web:
-    image: django:latest
-    command: python manage.py runserver 0.0.0.0:8000
+    build:
+      context: ./dj
+      dockerfile: Dockerfile
     volumes:
       - ./dj:/code
     ports:

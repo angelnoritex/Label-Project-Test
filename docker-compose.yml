@@ -1,26 +1,43 @@
 services:
   db:
     image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: mssql_db
     environment:
       SA_PASSWORD: "1234@password"
       ACCEPT_EULA: "Y"
+
     ports:
       - "1433:1433"
     volumes:
       - mssql-data:/var/opt/mssql
-
+    healthcheck:
+      test: ["CMD-SHELL", "sqlcmd -S localhost -U sa -P 1234@password -Q 'SELECT 1'"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+    networks:
+      - app-network
   web:
     build:
       context: ./dj
       dockerfile: Dockerfile
+    container_name: django_app
     volumes:
       - ./dj:/code
     ports:
       - "8000:8000"
-    environment:
-      DATABASE_URL: "mssql://sa:1234@password@db:1433/dj-project"
+    environment:    
+      DATABASE_URI: "mssql://sa:1234@password@db:1433/dj-project?timeout=60"
+      DATABASE_NAME: "dj-project"
+      DATABASE_USER: "sa"
+      DATABASE_PASSWORD: "1234@password"
+      DATABASE_HOST: "db"
+      DATABASE_PORT: "1433"
+      
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    #entrypoint: ["sh", "-c", "sleep 60 && python /code/manage.py runserver 0.0.0.0:8000"]
     networks:
       - app-network
 
@@ -30,3 +47,7 @@ networks:
 
 volumes:
   mssql-data:
+
+
+# /opt/mssql-tools/bin/sqlcmd -S db -U SA -P "1234@password"
+# /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "1234@password"

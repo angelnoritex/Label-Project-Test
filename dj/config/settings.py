@@ -79,28 +79,45 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-
-DATABASES = {}
-
 DATABASES = {
     'default': {
-        'ENGINE': 'sql_server.pyodbc',
-        'NAME': 'your_db_name',
-        'USER': 'your_db_user',
-        'PASSWORD': 'your_db_password',
-        'HOST': 'your_db_host',
-        'PORT': '',
+        'ENGINE': 'mssql',
+        'NAME': env("DATABASE_NAME"),
+        'USER': env("DATABASE_USER"),
+        'PASSWORD': env("DATABASE_PASSWORD"),
+        'HOST': env("DATABASE_HOST"),
+        'PORT': env("DATABASE_PORT"),
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
         },
     }
 }
 
-DATABASES['default'] = dj_database_url.config(default=os.getenv('DATABASE_URI', 'sqlite:///db.sqlite3'))
-if DATABASES['default']['ENGINE'] == 'sql_server.pyodbc':
-    DATABASES['default']['OPTIONS'] = {'driver': 'ODBC Driver 17 for SQL Server'}
+print(DATABASES)
 
-print(DATABASES["default"]["ENGINE"])
+#DATABASES['default'] = dj_database_url.config(default=os.getenv('DATABASE_URI', 'sqlite:///db.sqlite3'))
+# if DATABASES['default']['ENGINE'] == 'sql_server.pyodbc':
+#     DATABASES['default']['OPTIONS'] = {'driver': 'ODBC Driver 17 for SQL Server'}
+
+
+# DATABASE_CONNECTION_POOLING = False
+
+# # Logging configuration
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'level': 'DEBUG',
+#             'handlers': ['console'],
+#         },
+#     },
+# }
 
 
 # Password validation

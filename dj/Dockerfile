@@ -34,5 +34,7 @@ EXPOSE 8000
 
 COPY . /code/
 
+RUN python manage.py migrate --fake-initial
+
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 

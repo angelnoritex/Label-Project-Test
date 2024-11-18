@@ -5,6 +5,12 @@ FROM python
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
+ENV DATABASE_NAME="dj-project"
+ENV DATABASE_USER="sa"
+ENV DATABASE_PASSWORD="1234@password"
+ENV DATABASE_HOST="localhost"
+ENV DATABASE_PORT="1433"
+
 
 # # Set work directory
 WORKDIR /code
@@ -34,7 +40,7 @@ EXPOSE 8000
 
 COPY . /code/
 
-RUN python manage.py migrate --fake-initial
+#RUN python manage.py migrate --fake-initial
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py runserver 0.0.0.0:8000"]
 

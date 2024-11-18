@@ -14,6 +14,8 @@ from pathlib import Path
 import environ
 import os
 import dj_database_url
+
+import sys
 env = environ.Env(
     # set casting, default value
     DEBUG=(bool, False)
@@ -35,6 +37,9 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
+
+print(BASE_DIR)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,6 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+
+    'products'
 ]
 
 MIDDLEWARE = [
@@ -93,11 +101,11 @@ DATABASES = {
     }
 }
 
-print(DATABASES)
 
-#DATABASES['default'] = dj_database_url.config(default=os.getenv('DATABASE_URI', 'sqlite:///db.sqlite3'))
+# DATABASES['default'] = dj_database_url.config(default=os.getenv('DATABASE_URI', 'sqlite:///db.sqlite3'))
 # if DATABASES['default']['ENGINE'] == 'sql_server.pyodbc':
 #     DATABASES['default']['OPTIONS'] = {'driver': 'ODBC Driver 17 for SQL Server'}
+
 
 
 # DATABASE_CONNECTION_POOLING = False

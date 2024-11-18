@@ -17,29 +17,28 @@ services:
       retries: 10
     networks:
       - app-network
-  web:
-    build:
-      context: ./dj
-      dockerfile: Dockerfile
-    container_name: django_app
-    volumes:
-      - ./dj:/code
-    ports:
-      - "8000:8000"
-    environment:    
-      DATABASE_URI: "mssql://sa:1234@password@db:1433/dj-project?timeout=60"
-      DATABASE_NAME: "dj-project"
-      DATABASE_USER: "sa"
-      DATABASE_PASSWORD: "1234@password"
-      DATABASE_HOST: "db"
-      DATABASE_PORT: "1433"
-      
-    depends_on:
-      db:
-        condition: service_healthy
-    #entrypoint: ["sh", "-c", "sleep 60 && python /code/manage.py runserver 0.0.0.0:8000"]
-    networks:
-      - app-network
+  # web:
+  #   build:
+  #     context: ./dj
+  #     dockerfile: Dockerfile
+  #   container_name: django_app
+  #   volumes:
+  #     - ./dj:/code
+  #   ports:
+  #     - "8000:8000"
+  #   environment:    
+  #     DATABASE_URI: "mssql://sa:1234@password@db:1433/dj-project?timeout=60"
+  #     DATABASE_NAME: "dj-project"
+  #     DATABASE_USER: "sa"
+  #     DATABASE_PASSWORD: "1234@password"
+  #     DATABASE_HOST: "db"
+  #     DATABASE_PORT: "1433"
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   command: ["sh", "-c", "python /code/manage.py runserver 0.0.0.0:8000"]
+  #   networks:
+  #     - app-network
 
 networks:
   app-network:

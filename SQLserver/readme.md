@@ -1,13 +1,5 @@
 
-galose7675@cironex.com
-licencie = VNRVEK193TAP9C4O
 
-
-HOST=localhost
-USER=SA 
-PASS=<123Jhon@>
-PORT=1433
-hostConection=127.0.0.1,1433
 
 ## MSSMS
 
